@@ -1,0 +1,91 @@
+    <html>
+        <head>
+            <title>TODO LIST</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        </head>
+        <style>
+            .n1{
+            
+                background-color: pink ;
+                -webkit-text-fill-color :rgb(16, 14, 5);
+                margin-top: -10px;
+            }
+            .n2{
+                background-color:pink ;
+                margin-top: -10px;
+            }
+            table{
+                background: pink;
+                -webkit-text-fill-color :rgb(22, 21, 17);
+            }
+            h1{
+                color:rgba(239, 23, 88, 0.806) ;
+                background-color: aquamarine;
+                font-family: cursive, sans-serif;
+                margin-bottom: 10px;
+            }
+            .n5 {
+                border-width: 10px;
+                border-style: solid;
+                border-collapse: collapse;
+            }
+            .custom-submit {
+                width: 100px; 
+                height: 40px; 
+                font-size: 25px;    
+            }
+        
+        </style>
+        <body>
+            <h1 class="text-center" >To Do list</h1>
+            <div class="container-fluid">
+                <div class="row mb-1">
+                    <div class=" n1 col-md-7 ">
+                        {% if rows %}
+                        <table class="n5 table table-bordered bd-10  mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Details</th>
+                                    <th>Delete</th>
+                                    <th>Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in rows %}
+                                <tr>
+                                    <td>{{ i.title }}</td>
+                                    <td>{{ i.date }}</td>
+                                    <td>{{ i.Details }}</td>
+                                    <td><a href="{% url 'clear' i.id %}" class="btn btn-danger">Delete</a></td>
+                                    <td><a href="{% url 'update' i.id %}" class="btn btn-primary">Update</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <h2 class="text-center">No Data Avilable</h2>
+                        
+                        {% endif %}
+                    
+                    </div>
+                    <div class="n2 col-md-5">
+                        <form class="text-center" method="POST">
+                            {% csrf_token%}
+                            <input type="text" name="title" placeholder="Enter Your Title" class="form-control mt-3">
+                            <textarea name="Details" required  placeholder="Enter Your Details" class="form-control mt-3"  rows="15" col="50"></textarea>
+                            
+                            <input type="submit" name="submit" class="mt-1 custom-submit" >
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        
+        </body>
+    </html>
